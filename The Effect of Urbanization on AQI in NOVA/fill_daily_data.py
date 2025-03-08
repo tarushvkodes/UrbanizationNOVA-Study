@@ -34,6 +34,9 @@ def fill_daily_data(df):
         values = []
         for _, row in df.iterrows():
             year = row['Date'].year
+            # Skip years before 2000
+            if year < 2000:
+                continue
             daily_dates = pd.date_range(start=f'{year}-01-01', end=f'{year}-12-31', freq='D')
             dates.extend(daily_dates)
             locations.extend([row['Location']] * len(daily_dates))
@@ -49,6 +52,9 @@ def fill_daily_data(df):
         
         # Drop any rows where date parsing failed
         df = df.dropna(subset=['Date'])
+        
+        # Filter for years 2000 and later
+        df = df[df['Date'].dt.year >= 2000]
         
         # Handle duplicate dates by taking the mean AQI value for each date
         df = df.groupby(['Date', 'Location'], as_index=False)['AQI'].mean()

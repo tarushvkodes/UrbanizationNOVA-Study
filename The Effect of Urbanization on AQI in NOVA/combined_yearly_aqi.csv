@@ -1,0 +1,246 @@
+Location,Date,AQI
+Alexandria,2000,47.0
+Alexandria,2001,45.0
+Alexandria,2002,48.0
+Alexandria,2003,42.0
+Alexandria,2004,41.0
+Alexandria,2005,44.0
+Alexandria,2006,40.0
+Alexandria,2007,42.0
+Alexandria,2008,39.0
+Alexandria,2009,37.0
+Alexandria,2010,40.0
+Alexandria,2011,41.0
+Alexandria,2012,38.0
+Alexandria,2013,36.0
+Alexandria,2014,37.0
+Alexandria,2015,35.0
+Alexandria,2016,34.0
+Alexandria,2017,33.0
+Alexandria,2018,32.0
+Alexandria,2019,31.0
+Alexandria,2020,29.0
+Alexandria,2021,30.0
+Alexandria,2022,31.0
+Alexandria,2023,32.0
+Arlington County,2000,46.4
+Arlington County,2001,45.8
+Arlington County,2002,44.9
+Arlington County,2003,43.2
+Arlington County,2004,42.8
+Arlington County,2005,44.1
+Arlington County,2006,43.5
+Arlington County,2007,42.9
+Arlington County,2008,41.8
+Arlington County,2009,39.5
+Arlington County,2010,42.3
+Arlington County,2011,41.7
+Arlington County,2012,40.9
+Arlington County,2013,38.6
+Arlington County,2014,37.9
+Arlington County,2015,36.8
+Arlington County,2016,37.2
+Arlington County,2017,36.5
+Arlington County,2018,35.9
+Arlington County,2019,35.2
+Arlington County,2020,33.8
+Arlington County,2021,34.6
+Arlington County,2022,35.1
+Arlington County,2023,34.9
+District of Columbia,2000,64.4
+District of Columbia,2001,68.5
+District of Columbia,2002,69.1
+District of Columbia,2003,60.6
+District of Columbia,2004,59.3
+District of Columbia,2005,62.1
+District of Columbia,2006,61.3
+District of Columbia,2007,60.9
+District of Columbia,2008,55.1
+District of Columbia,2009,51.0
+District of Columbia,2010,58.6
+District of Columbia,2011,58.7
+District of Columbia,2012,60.2
+District of Columbia,2013,50.0
+District of Columbia,2014,48.8
+District of Columbia,2015,49.8
+District of Columbia,2016,49.7
+District of Columbia,2017,51.3
+District of Columbia,2018,47.3
+District of Columbia,2019,48.3
+District of Columbia,2020,41.5
+District of Columbia,2021,47.5
+District of Columbia,2022,47.0
+Fairfax County,2000,64.3
+Fairfax County,2001,63.9
+Fairfax County,2002,62.4
+Fairfax County,2003,54.1
+Fairfax County,2004,57.3
+Fairfax County,2005,54.8
+Fairfax County,2006,51.7
+Fairfax County,2007,47.7
+Fairfax County,2008,43.4
+Fairfax County,2009,41.2
+Fairfax County,2010,43.8
+Fairfax County,2011,42.2
+Fairfax County,2012,46.8
+Fairfax County,2013,41.4
+Fairfax County,2014,40.5
+Fairfax County,2015,44.3
+Fairfax County,2016,44.3
+Fairfax County,2017,44.5
+Fairfax County,2018,44.0
+Fairfax County,2019,45.1
+Fairfax County,2020,40.7
+Fairfax County,2021,43.2
+Fairfax County,2022,38.7
+Fairfax County,2023,41.8
+Frederick County,2000,47.4
+Frederick County,2001,50.9
+Frederick County,2002,50.0
+Frederick County,2003,38.1
+Frederick County,2004,39.9
+Frederick County,2005,47.7
+Frederick County,2006,43.8
+Frederick County,2007,48.3
+Frederick County,2008,44.2
+Frederick County,2009,36.2
+Frederick County,2010,48.5
+Frederick County,2011,43.2
+Frederick County,2012,44.4
+Frederick County,2013,39.8
+Frederick County,2014,37.6
+Frederick County,2015,41.1
+Frederick County,2016,41.3
+Frederick County,2017,40.8
+Frederick County,2018,37.9
+Frederick County,2019,39.8
+Frederick County,2020,37.3
+Frederick County,2021,38.8
+Frederick County,2022,40.2
+Howard County,2014,46.5
+Howard County,2015,37.7
+Howard County,2016,39.2
+Howard County,2017,35.7
+Howard County,2018,37.3
+Howard County,2019,32.4
+Howard County,2020,29.8
+Howard County,2021,32.3
+Howard County,2022,31.9
+Loudoun County,2000,44.7
+Loudoun County,2001,51.8
+Loudoun County,2002,59.3
+Loudoun County,2003,46.8
+Loudoun County,2004,45.9
+Loudoun County,2005,39.6
+Loudoun County,2006,47.9
+Loudoun County,2007,49.8
+Loudoun County,2008,42.8
+Loudoun County,2009,36.5
+Loudoun County,2010,42.5
+Loudoun County,2011,39.1
+Loudoun County,2012,39.4
+Loudoun County,2013,34.7
+Loudoun County,2014,36.7
+Loudoun County,2015,35.9
+Loudoun County,2016,34.9
+Loudoun County,2017,36.2
+Loudoun County,2018,34.4
+Loudoun County,2019,36.0
+Loudoun County,2020,34.6
+Loudoun County,2021,37.9
+Loudoun County,2022,32.2
+Loudoun County,2023,33.6
+Montgomery County,2000,51.3
+Montgomery County,2000,55.8
+Montgomery County,2001,55.2
+Montgomery County,2001,61.7
+Montgomery County,2002,53.4
+Montgomery County,2002,63.4
+Montgomery County,2003,45.5
+Montgomery County,2003,47.2
+Montgomery County,2004,47.2
+Montgomery County,2004,51.9
+Montgomery County,2005,48.5
+Montgomery County,2005,45.3
+Montgomery County,2006,50.0
+Montgomery County,2006,54.1
+Montgomery County,2007,48.5
+Montgomery County,2007,61.5
+Montgomery County,2008,48.8
+Montgomery County,2008,57.8
+Montgomery County,2009,45.0
+Montgomery County,2009,48.2
+Montgomery County,2010,51.0
+Montgomery County,2010,52.6
+Montgomery County,2011,49.1
+Montgomery County,2011,50.1
+Montgomery County,2012,48.1
+Montgomery County,2012,48.9
+Montgomery County,2013,41.0
+Montgomery County,2013,44.7
+Montgomery County,2014,42.0
+Montgomery County,2014,47.2
+Montgomery County,2015,45.6
+Montgomery County,2015,43.1
+Montgomery County,2016,39.2
+Montgomery County,2016,42.8
+Montgomery County,2017,38.9
+Montgomery County,2017,41.9
+Montgomery County,2018,41.6
+Montgomery County,2018,41.2
+Montgomery County,2019,37.5
+Montgomery County,2019,39.8
+Montgomery County,2020,33.4
+Montgomery County,2020,37.9
+Montgomery County,2021,41.0
+Montgomery County,2021,38.4
+Montgomery County,2022,45.1
+Montgomery County,2022,36.7
+Prince George's County,2000,50.2
+Prince George's County,2001,54.4
+Prince George's County,2002,57.7
+Prince George's County,2003,47.3
+Prince George's County,2004,47.4
+Prince George's County,2005,52.6
+Prince George's County,2006,53.7
+Prince George's County,2007,56.4
+Prince George's County,2008,51.4
+Prince George's County,2009,48.3
+Prince George's County,2010,57.9
+Prince George's County,2011,54.3
+Prince George's County,2012,54.8
+Prince George's County,2013,47.6
+Prince George's County,2014,47.4
+Prince George's County,2015,51.6
+Prince George's County,2016,47.0
+Prince George's County,2017,44.0
+Prince George's County,2018,44.0
+Prince George's County,2019,45.4
+Prince George's County,2020,38.3
+Prince George's County,2021,42.4
+Prince George's County,2022,35.7
+Prince George's County,2023,33.5
+Prince William County,2000,38.1
+Prince William County,2001,43.2
+Prince William County,2002,46.3
+Prince William County,2003,37.9
+Prince William County,2004,35.9
+Prince William County,2005,36.5
+Prince William County,2006,38.2
+Prince William County,2007,39.6
+Prince William County,2008,34.8
+Prince William County,2009,28.9
+Prince William County,2010,34.8
+Prince William County,2011,32.3
+Prince William County,2012,34.2
+Prince William County,2013,29.0
+Prince William County,2014,30.2
+Prince William County,2015,30.1
+Prince William County,2016,30.6
+Prince William County,2017,31.0
+Prince William County,2018,29.8
+Prince William County,2019,31.8
+Prince William County,2020,33.4
+Prince William County,2021,36.2
+Prince William County,2022,49.2
+Prince William County,2023,33.2
