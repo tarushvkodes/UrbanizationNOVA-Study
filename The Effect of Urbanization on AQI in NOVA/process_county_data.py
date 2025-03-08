@@ -190,3 +190,61 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+import csv
+import pandas as pd
+import os
+
+def clean_aqi_data(input_file, output_file):
+    # Read the raw data
+    with open(input_file, 'r') as f:
+        content = f.readlines()
+    
+    # Process each line
+    cleaned_data = []
+    for line in content:
+        # Skip header
+        if line.startswith('Location'):
+            cleaned_data.append(['Location', 'Date', 'AQI'])
+            continue
+            
+        # Split by comma and clean up quotes
+        parts = line.strip().split('","')
+        if len(parts) > 0:
+            # Extract location (county name)
+            location = parts[2] if len(parts) > 2 else ""
+            
+            # Extract date
+            date = parts[4] if len(parts) > 4 else ""
+            
+            # Extract AQI value
+            aqi = parts[10] if len(parts) > 10 else ""
+            if aqi:
+                try:
+                    aqi = int(aqi.replace('"', ''))
+                except:
+                    continue
+                    
+            cleaned_data.append([location, date, aqi])
+    
+    # Write cleaned data to new file
+    with open(output_file, 'w', newline='') as f:
+        writer = csv.writer(f)
+        writer.writerows(cleaned_data)
+
+def process_all_counties():
+    base_path = "The Effect of Urbanization on AQI in NOVA"
+    for county_dir in os.listdir(base_path):
+        if "County" in county_dir or "City" in county_dir:
+            county_path = os.path.join(base_path, county_dir)
+            if os.path.isdir(county_path):
+                # Look for AQI files
+                for file in os.listdir(county_path):
+                    if "Air quality index" in file and file.endswith('.csv'):
+                        input_file = os.path.join(county_path, file)
+                        output_file = os.path.join(county_path, "cleaned_" + file)
+                        clean_aqi_data(input_file, output_file)
+                        print(f"Processed {file}")
+
+if __name__ == "__main__":
+    process_all_counties()
