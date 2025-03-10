@@ -191,60 +191,132 @@ def main():
 if __name__ == "__main__":
     main()
 
-import csv
 import pandas as pd
+import numpy as np
+from datetime import datetime
 import os
 
-def clean_aqi_data(input_file, output_file):
-    # Read the raw data
-    with open(input_file, 'r') as f:
-        content = f.readlines()
+def process_county_data(input_file, county_name, data_type):
+    """
+    Process county data files into standardized yearly format
+    Args:
+        input_file: Path to input CSV file
+        county_name: Name of the county
+        data_type: Type of data (temperature, aqi, income, population)
+    """
+    # Read the CSV file
+    df = pd.read_csv(input_file)
     
-    # Process each line
-    cleaned_data = []
-    for line in content:
-        # Skip header
-        if line.startswith('Location'):
-            cleaned_data.append(['Location', 'Date', 'AQI'])
-            continue
-            
-        # Split by comma and clean up quotes
-        parts = line.strip().split('","')
-        if len(parts) > 0:
-            # Extract location (county name)
-            location = parts[2] if len(parts) > 2 else ""
-            
-            # Extract date
-            date = parts[4] if len(parts) > 4 else ""
-            
-            # Extract AQI value
-            aqi = parts[10] if len(parts) > 10 else ""
-            if aqi:
-                try:
-                    aqi = int(aqi.replace('"', ''))
-                except:
-                    continue
-                    
-            cleaned_data.append([location, date, aqi])
+    # Identify date and value columns based on data type
+    date_cols = ['Date', 'Year', 'Variable observation date']
+    value_cols = {
+        'temperature': ['Temperature', 'Temperature_Change', 'Variable observation value'],
+        'aqi': ['AQI', 'Air Quality Index'],
+        'income': ['Income', 'Median Household Income'],
+        'population': ['Population'],
+        'employment': ['People Employed']
+    }
     
-    # Write cleaned data to new file
-    with open(output_file, 'w', newline='') as f:
-        writer = csv.writer(f)
-        writer.writerows(cleaned_data)
+    # Find the correct date column
+    date_col = None
+    for col in date_cols:
+        if col in df.columns:
+            date_col = col
+            break
+    
+    if not date_col:
+        raise ValueError(f"Could not find date column in {input_file}")
+    
+    # Find the correct value column
+    value_col = None
+    for col in value_cols.get(data_type, []):
+        if col in df.columns:
+            value_col = col
+            break
+    
+    if not value_col:
+        raise ValueError(f"Could not find value column for {data_type} in {input_file}")
+    
+    # Convert date to datetime
+    try:
+        df['date'] = pd.to_datetime(df[date_col])
+    except:
+        try:
+            # Try extracting year from string
+            df['date'] = pd.to_datetime(df[date_col].astype(str).str[:4], format='%Y')
+        except:
+            raise ValueError(f"Could not parse dates in {input_file}")
+    
+    # Extract year
+    df['year'] = df['date'].dt.year
+    
+    # Calculate yearly averages
+    yearly_avg = df.groupby('year')[value_col].mean().reset_index()
+    
+    # Create full range of years from 2000 to 2023
+    full_range = pd.DataFrame({'year': range(2000, 2024)})
+    
+    # Merge with actual data
+    merged = pd.merge(full_range, yearly_avg, on='year', how='left')
+    
+    # For missing years, use linear interpolation
+    merged[value_col] = merged[value_col].interpolate(method='linear')
+    
+    # Create final dataframe with required format
+    final_df = pd.DataFrame({
+        'Location': county_name,
+        'Year': merged['year'],
+        data_type.capitalize(): merged[value_col]
+    })
+    
+    return final_df
 
-def process_all_counties():
-    base_path = "The Effect of Urbanization on AQI in NOVA"
-    for county_dir in os.listdir(base_path):
-        if "County" in county_dir or "City" in county_dir:
-            county_path = os.path.join(base_path, county_dir)
-            if os.path.isdir(county_path):
-                # Look for AQI files
-                for file in os.listdir(county_path):
-                    if "Air quality index" in file and file.endswith('.csv'):
-                        input_file = os.path.join(county_path, file)
-                        output_file = os.path.join(county_path, "cleaned_" + file)
-                        clean_aqi_data(input_file, output_file)
-                        print(f"Processed {file}")
+def process_all_counties(base_dir="."):
+    """Process all data types for all counties"""
+    counties = [
+        ("FairFax County, VA Data", "Fairfax County, VA"),
+        ("Fredrick County, MD Data", "Frederick County, MD"),
+        ("Howard County, MD Data", "Howard County, MD"),
+        ("Montgomery County, MD Data", "Montgomery County, MD"),
+        ("Prince George's County, MD Data", "Prince George's County, MD"),
+        ("Loudoun County, VA Data", "Loudoun County, VA"),
+        ("Prince William County, VA Data", "Prince William County, VA"),
+        ("Arlington County, VA Data", "Arlington County, VA"),
+        ("Alexandria City, VA Data", "Alexandria City, VA")
+    ]
+    
+    data_types = ['temperature', 'aqi', 'income', 'population', 'employment']
+    
+    for county_folder, county_name in counties:
+        print(f"\nProcessing {county_name}...")
+        
+        for data_type in data_types:
+            try:
+                # Find relevant input file
+                input_files = []
+                for file in os.listdir(os.path.join(base_dir, county_folder)):
+                    if any(keyword in file.lower() for keyword in [data_type, 'temp', 'aqi', 'household', 'employ']):
+                        input_files.append(os.path.join(base_dir, county_folder, file))
+                
+                if not input_files:
+                    print(f"No {data_type} file found for {county_name}")
+                    continue
+                
+                # Process first matching file
+                input_file = input_files[0]
+                df = process_county_data(input_file, county_name, data_type)
+                
+                # Save processed data
+                output_file = os.path.join(
+                    base_dir,
+                    county_folder, 
+                    f"{county_name.split(',')[0].lower().replace(' ', '_')}_{data_type}_2000_2023.csv"
+                )
+                df.to_csv(output_file, index=False)
+                print(f"Processed {data_type} data for {county_name}")
+                
+            except Exception as e:
+                print(f"Error processing {data_type} data for {county_name}: {str(e)}")
 
 if __name__ == "__main__":
-    process_all_counties()
+    process_all_counties("The Effect of Urbanization on AQI in NOVA")

@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    
+        <script>
+            L_NO_TOUCH = false;
+            L_DISABLE_3D = false;
+        </script>
+    
+    <style>html, body {width: 100%;height: 100%;margin: 0;padding: 0;}</style>
+    <style>#map {position:absolute;top:0;bottom:0;right:0;left:0;}</style>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_6ef49b2b3dc702b8db75b93460a77ad8 {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+        
+    
+                    <style>
+                        .foliumtooltip {
+                            background-color: white; color: #333333; font-family: arial; font-size: 12px; padding: 10px;
+                        }
+                       .foliumtooltip table{
+                            margin: auto;
+                        }
+                        .foliumtooltip tr{
+                            text-align: left;
+                        }
+                        .foliumtooltip th{
+                            padding: 2px; padding-right: 8px;
+                        }
+                    </style>
+            
+</head>
+<body>
+    
+    
+    <div style="position: fixed; 
+                bottom: 50px; right: 50px; width: 180px; height: 130px; 
+                border:1px solid grey; z-index:9999; background-color:white;
+                opacity:0.9; padding:10px; border-radius: 5px; box-shadow: 0 0 5px rgba(0,0,0,0.2)">
+        <p style="margin-top: 0; font-weight: bold;">Counties by State</p>
+        <p><span style="background-color: #FF8080; opacity: 0.6; padding: 0 10px; border: 1px solid black">&nbsp;</span> Virginia</p>
+        <p><span style="background-color: #8080FF; opacity: 0.6; padding: 0 10px; border: 1px solid black">&nbsp;</span> Maryland</p>
+        <p><span style="background-color: #80FF80; opacity: 0.6; padding: 0 10px; border: 1px solid black">&nbsp;</span> DC</p>
+    </div>
+    
+    
+            <div class="folium-map" id="map_6ef49b2b3dc702b8db75b93460a77ad8" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_6ef49b2b3dc702b8db75b93460a77ad8 = L.map(
+                "map_6ef49b2b3dc702b8db75b93460a77ad8",
+                {
+                    center: [38.9072, -77.0369],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 9,
+  "zoomControl": true,
+  "preferCanvas": false,
+}
+
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_4dd6bf70e3f9c79fca539391af467a4a = L.tileLayer(
+                "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 20,
+  "maxNativeZoom": 20,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors \u0026copy; \u003ca href=\"https://carto.com/attributions\"\u003eCARTO\u003c/a\u003e",
+  "subdomains": "abcd",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_4dd6bf70e3f9c79fca539391af467a4a.addTo(map_6ef49b2b3dc702b8db75b93460a77ad8);
+        
+    
+        function geo_json_be405e1c43b8b32d28d53effe4d09ae2_styler(feature) {
+            switch(feature.properties.name) {
+                case "Fairfax": case "Loudoun": case "Prince William": case "Arlington": case "Alexandria": 
+                    return {"color": "black", "dashArray": "3", "fillColor": "#FF8080", "fillOpacity": 0.4, "weight": 1.5};
+                case "District of Columbia": 
+                    return {"color": "black", "dashArray": "3", "fillColor": "#80FF80", "fillOpacity": 0.4, "weight": 1.5};
+                default:
+                    return {"color": "black", "dashArray": "3", "fillColor": "#8080FF", "fillOpacity": 0.4, "weight": 1.5};
+            }
+        }
+        function geo_json_be405e1c43b8b32d28d53effe4d09ae2_highlighter(feature) {
+            switch(feature.properties.name) {
+                default:
+                    return {"fillOpacity": 0.7, "weight": 3};
+            }
+        }
+
+        function geo_json_be405e1c43b8b32d28d53effe4d09ae2_onEachFeature(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    if(typeof e.target.setStyle === "function"){
+                            geo_json_be405e1c43b8b32d28d53effe4d09ae2.resetStyle(e.target);
+                    }
+                },
+                mouseover: function(e) {
+                    if(typeof e.target.setStyle === "function"){
+                        const highlightStyle = geo_json_be405e1c43b8b32d28d53effe4d09ae2_highlighter(e.target.feature)
+                        e.target.setStyle(highlightStyle);
+                    }
+                },
+            });
+        };
+        var geo_json_be405e1c43b8b32d28d53effe4d09ae2 = L.geoJson(null, {
+                onEachFeature: geo_json_be405e1c43b8b32d28d53effe4d09ae2_onEachFeature,
+            
+                style: geo_json_be405e1c43b8b32d28d53effe4d09ae2_styler,
+            ...{
+}
+        });
+
+        function geo_json_be405e1c43b8b32d28d53effe4d09ae2_add (data) {
+            geo_json_be405e1c43b8b32d28d53effe4d09ae2
+                .addData(data);
+        }
+            geo_json_be405e1c43b8b32d28d53effe4d09ae2_add({"features": [{"geometry": {"coordinates": [[[-77.31, 38.71], [-77.31, 38.98], [-77.12, 38.98], [-77.12, 38.84], [-77.04, 38.84], [-77.04, 38.71], [-77.31, 38.71]]], "type": "Polygon"}, "properties": {"name": "Fairfax", "state": "VA"}, "type": "Feature"}, {"geometry": {"coordinates": [[[-77.69, 39.21], [-77.69, 39.72], [-77.16, 39.72], [-77.16, 39.21], [-77.69, 39.21]]], "type": "Polygon"}, "properties": {"name": "Frederick", "state": "MD"}, "type": "Feature"}, {"geometry": {"coordinates": [[[-77.01, 39.13], [-77.01, 39.34], [-76.71, 39.34], [-76.71, 39.13], [-77.01, 39.13]]], "type": "Polygon"}, "properties": {"name": "Howard", "state": "MD"}, "type": "Feature"}, {"geometry": {"coordinates": [[[-77.33, 38.93], [-77.33, 39.28], [-76.97, 39.28], [-76.97, 38.93], [-77.33, 38.93]]], "type": "Polygon"}, "properties": {"name": "Montgomery", "state": "MD"}, "type": "Feature"}, {"geometry": {"coordinates": [[[-76.97, 38.7], [-76.97, 39.1], [-76.71, 39.1], [-76.71, 38.7], [-76.97, 38.7]]], "type": "Polygon"}, "properties": {"name": "Prince Georges", "state": "MD"}, "type": "Feature"}, {"geometry": {"coordinates": [[[-77.95, 38.83], [-77.95, 39.33], [-77.31, 39.33], [-77.31, 38.83], [-77.95, 38.83]]], "type": "Polygon"}, "properties": {"name": "Loudoun", "state": "VA"}, "type": "Feature"}, {"geometry": {"coordinates": [[[-77.65, 38.53], [-77.65, 38.88], [-77.31, 38.88], [-77.31, 38.53], [-77.65, 38.53]]], "type": "Polygon"}, "properties": {"name": "Prince William", "state": "VA"}, "type": "Feature"}, {"geometry": {"coordinates": [[[-77.17, 38.83], [-77.17, 38.93], [-77.04, 38.93], [-77.04, 38.83], [-77.17, 38.83]]], "type": "Polygon"}, "properties": {"name": "Arlington", "state": "VA"}, "type": "Feature"}, {"geometry": {"coordinates": [[[-77.14, 38.77], [-77.14, 38.86], [-77.04, 38.86], [-77.04, 38.77], [-77.14, 38.77]]], "type": "Polygon"}, "properties": {"name": "Alexandria", "state": "VA"}, "type": "Feature"}, {"geometry": {"coordinates": [[[-77.12, 38.79], [-77.12, 38.995], [-76.909, 38.995], [-76.909, 38.79], [-77.12, 38.79]]], "type": "Polygon"}, "properties": {"name": "District of Columbia", "state": "DC"}, "type": "Feature"}], "type": "FeatureCollection"});
+
+        
+    
+    geo_json_be405e1c43b8b32d28d53effe4d09ae2.bindTooltip(
+    function(layer){
+    let div = L.DomUtil.create('div');
+    
+    let handleObject = feature=>typeof(feature)=='object' ? JSON.stringify(feature) : feature;
+    let fields = ["name", "state"];
+    let aliases = ["County", "State"];
+    let table = '<table>' +
+        String(
+        fields.map(
+        (v,i)=>
+        `<tr>
+            <th>${aliases[i]}</th>
+            
+            <td>${handleObject(layer.feature.properties[v])}</td>
+        </tr>`).join(''))
+    +'</table>';
+    div.innerHTML=table;
+    
+    return div
+    }
+    ,{
+  "sticky": true,
+  "className": "foliumtooltip",
+});
+                     
+    
+            geo_json_be405e1c43b8b32d28d53effe4d09ae2.addTo(map_6ef49b2b3dc702b8db75b93460a77ad8);
+        
+    
+        var popup_fe67646f1460b8cb1fff79999aca200e = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_7251ce0abd8d5b4b9ceb4d4e32b056d5 = $(`<div id="html_7251ce0abd8d5b4b9ceb4d4e32b056d5" style="width: 100.0%; height: 100.0%;">Fairfax, VA</div>`)[0];
+                popup_fe67646f1460b8cb1fff79999aca200e.setContent(html_7251ce0abd8d5b4b9ceb4d4e32b056d5);
+            
+        
+
+        map_6ef49b2b3dc702b8db75b93460a77ad8.bindPopup(popup_fe67646f1460b8cb1fff79999aca200e)
+        ;
+
+        
+    
+    
+        var popup_5426f05e05f5364f0b409c58dd2958db = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_3d4bd3bf5729ef9d932f6ae7c18d4e7a = $(`<div id="html_3d4bd3bf5729ef9d932f6ae7c18d4e7a" style="width: 100.0%; height: 100.0%;">Frederick, MD</div>`)[0];
+                popup_5426f05e05f5364f0b409c58dd2958db.setContent(html_3d4bd3bf5729ef9d932f6ae7c18d4e7a);
+            
+        
+
+        map_6ef49b2b3dc702b8db75b93460a77ad8.bindPopup(popup_5426f05e05f5364f0b409c58dd2958db)
+        ;
+
+        
+    
+    
+        var popup_22f9f39a2165fb23966e9d833463ba78 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_4e7ad807fb96c162eb81eac1a5ad0516 = $(`<div id="html_4e7ad807fb96c162eb81eac1a5ad0516" style="width: 100.0%; height: 100.0%;">Howard, MD</div>`)[0];
+                popup_22f9f39a2165fb23966e9d833463ba78.setContent(html_4e7ad807fb96c162eb81eac1a5ad0516);
+            
+        
+
+        map_6ef49b2b3dc702b8db75b93460a77ad8.bindPopup(popup_22f9f39a2165fb23966e9d833463ba78)
+        ;
+
+        
+    
+    
+        var popup_518ae3f6a38998be2b8c422b5e2680c2 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_2830d5d5515ef2e1ba8119bc7fe9a196 = $(`<div id="html_2830d5d5515ef2e1ba8119bc7fe9a196" style="width: 100.0%; height: 100.0%;">Montgomery, MD</div>`)[0];
+                popup_518ae3f6a38998be2b8c422b5e2680c2.setContent(html_2830d5d5515ef2e1ba8119bc7fe9a196);
+            
+        
+
+        map_6ef49b2b3dc702b8db75b93460a77ad8.bindPopup(popup_518ae3f6a38998be2b8c422b5e2680c2)
+        ;
+
+        
+    
+    
+        var popup_c0f1474a502bc3d6e8174f56da102b63 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_96dc512c6da227bcb958c158a233ee80 = $(`<div id="html_96dc512c6da227bcb958c158a233ee80" style="width: 100.0%; height: 100.0%;">Prince Georges, MD</div>`)[0];
+                popup_c0f1474a502bc3d6e8174f56da102b63.setContent(html_96dc512c6da227bcb958c158a233ee80);
+            
+        
+
+        map_6ef49b2b3dc702b8db75b93460a77ad8.bindPopup(popup_c0f1474a502bc3d6e8174f56da102b63)
+        ;
+
+        
+    
+    
+        var popup_1ae28364c573abc6f4f171e0e7cca113 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_9be6ba6c53b5196bb07e3bd78463cab4 = $(`<div id="html_9be6ba6c53b5196bb07e3bd78463cab4" style="width: 100.0%; height: 100.0%;">Loudoun, VA</div>`)[0];
+                popup_1ae28364c573abc6f4f171e0e7cca113.setContent(html_9be6ba6c53b5196bb07e3bd78463cab4);
+            
+        
+
+        map_6ef49b2b3dc702b8db75b93460a77ad8.bindPopup(popup_1ae28364c573abc6f4f171e0e7cca113)
+        ;
+
+        
+    
+    
+        var popup_0fdbbd04e76b2e97dcd6fd5162c7d884 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_04d458aa7adff91c29ea8bce85888b89 = $(`<div id="html_04d458aa7adff91c29ea8bce85888b89" style="width: 100.0%; height: 100.0%;">Prince William, VA</div>`)[0];
+                popup_0fdbbd04e76b2e97dcd6fd5162c7d884.setContent(html_04d458aa7adff91c29ea8bce85888b89);
+            
+        
+
+        map_6ef49b2b3dc702b8db75b93460a77ad8.bindPopup(popup_0fdbbd04e76b2e97dcd6fd5162c7d884)
+        ;
+
+        
+    
+    
+        var popup_f50182a0abb000085c858330b98e6d07 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_d4783a922fa4f8e557d311c76a30d94b = $(`<div id="html_d4783a922fa4f8e557d311c76a30d94b" style="width: 100.0%; height: 100.0%;">Arlington, VA</div>`)[0];
+                popup_f50182a0abb000085c858330b98e6d07.setContent(html_d4783a922fa4f8e557d311c76a30d94b);
+            
+        
+
+        map_6ef49b2b3dc702b8db75b93460a77ad8.bindPopup(popup_f50182a0abb000085c858330b98e6d07)
+        ;
+
+        
+    
+    
+        var popup_1573776d4434b0791079a160a17b02c8 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_664fc1f6518908e4ad72fa12bc52123b = $(`<div id="html_664fc1f6518908e4ad72fa12bc52123b" style="width: 100.0%; height: 100.0%;">Alexandria, VA</div>`)[0];
+                popup_1573776d4434b0791079a160a17b02c8.setContent(html_664fc1f6518908e4ad72fa12bc52123b);
+            
+        
+
+        map_6ef49b2b3dc702b8db75b93460a77ad8.bindPopup(popup_1573776d4434b0791079a160a17b02c8)
+        ;
+
+        
+    
+    
+        var popup_be9979072105a15bbd8eedbcc4cf712c = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_506a63b9601d046c8f6042a1995b2998 = $(`<div id="html_506a63b9601d046c8f6042a1995b2998" style="width: 100.0%; height: 100.0%;">District of Columbia, DC</div>`)[0];
+                popup_be9979072105a15bbd8eedbcc4cf712c.setContent(html_506a63b9601d046c8f6042a1995b2998);
+            
+        
+
+        map_6ef49b2b3dc702b8db75b93460a77ad8.bindPopup(popup_be9979072105a15bbd8eedbcc4cf712c)
+        ;
+
+        
+    
+</script>
+</html>
